@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مختبر الرياضيات | آلة حاسبة وحلّال معادلات</title>
+  <meta name="description" content="مختبر الرياضيات: آلة حاسبة علمية وحلّال معادلات من الدرجة الأولى والثانية مع خطوات الحل بالعربي. HTML وCSS وJavaScript خالص." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-symbols" aria-hidden="true">
+    <span style="--x:6%;  --d:0s;   --s:2.4rem">π</span>
+    <span style="--x:14%; --d:3s;   --s:1.6rem">∑</span>
+    <span style="--x:24%; --d:6s;   --s:2rem">√</span>
+    <span style="--x:36%; --d:1.5s; --s:1.4rem">∞</span>
+    <span style="--x:47%; --d:4.5s; --s:2.2rem">Δ</span>
+    <span style="--x:58%; --d:2s;   --s:1.7rem">÷</span>
+    <span style="--x:68%; --d:5.5s; --s:2.5rem">θ</span>
+    <span style="--x:79%; --d:0.8s; --s:1.5rem">×</span>
+    <span style="--x:88%; --d:3.8s; --s:2.1rem">∫</span>
+    <span style="--x:95%; --d:6.5s; --s:1.8rem">λ</span>
+  </div>
+
+  <main class="page">
+    <header class="hero">
+      <h1>مختبر الرياضيات <span class="hero-emoji">🧮</span></h1>
+      <p>آلة حاسبة وحلّال معادلات بخطوات الحل — HTML وCSS وJavaScript خالص، بدون أي مكتبات</p>
+    </header>
+
+    <section class="card">
+      <nav class="tabs" role="tablist">
+        <button class="tab active" id="tab-calc" role="tab" aria-selected="true" data-panel="panel-calc">الآلة الحاسبة</button>
+        <button class="tab" id="tab-solver" role="tab" aria-selected="false" data-panel="panel-solver">حلّال المعادلات</button>
+      </nav>
+
+      <!-- Calculator -->
+      <div class="panel active" id="panel-calc" role="tabpanel">
+        <div class="display">
+          <div class="display-history" id="calc-history">&nbsp;</div>
+          <div class="display-current" id="calc-current">0</div>
+        </div>
+        <div class="keys">
+          <button class="key fn" data-action="clear">C</button>
+          <button class="key fn" data-action="negate">±</button>
+          <button class="key fn" data-action="percent">%</button>
+          <button class="key op" data-op="/">÷</button>
+
+          <button class="key" data-digit="7">7</button>
+          <button class="key" data-digit="8">8</button>
+          <button class="key" data-digit="9">9</button>
+          <button class="key op" data-op="*">×</button>
+
+          <button class="key" data-digit="4">4</button>
+          <button class="key" data-digit="5">5</button>
+          <button class="key" data-digit="6">6</button>
+          <button class="key op" data-op="-">−</button>
+
+          <button class="key" data-digit="1">1</button>
+          <button class="key" data-digit="2">2</button>
+          <button class="key" data-digit="3">3</button>
+          <button class="key op" data-op="+">+</button>
+
+          <button class="key fn" data-action="sqrt">√</button>
+          <button class="key" data-digit="0">0</button>
+          <button class="key" data-action="dot">.</button>
+          <button class="key equals" data-action="equals">=</button>
+        </div>
+        <div class="keys keys-sci">
+          <button class="key fn small" data-action="square">x²</button>
+          <button class="key fn small" data-action="inverse">1/x</button>
+          <button class="key fn small" data-action="pi">π</button>
+          <button class="key fn small" data-action="backspace">⌫</button>
+        </div>
+      </div>
+
+      <!-- Equation solver -->
+      <div class="panel" id="panel-solver" role="tabpanel">
+        <div class="solver-type">
+          <button class="chip active" data-degree="1">من الدرجة الأولى</button>
+          <button class="chip" data-degree="2">من الدرجة الثانية</button>
+        </div>
+
+        <p class="solver-formula" id="solver-formula">a·x + b = 0</p>
+
+        <div class="solver-inputs" id="solver-inputs">
+          <label class="field" id="field-a">
+            <span>a</span>
+            <input type="number" id="in-a" value="2" step="any" />
+          </label>
+          <label class="field" id="field-b">
+            <span>b</span>
+            <input type="number" id="in-b" value="-6" step="any" />
+          </label>
+          <label class="field hidden" id="field-c">
+            <span>c</span>
+            <input type="number" id="in-c" value="4" step="any" />
+          </label>
+        </div>
+
+        <button class="solve-btn" id="solve-btn">حِلّ المعادلة ✨</button>
+
+        <div class="steps" id="steps" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>اتبنى بـ <span class="heart">💙</span> بـ HTML و CSS و JavaScript خالص — <a href="https://www.globalmathematics.online/" target="_blank" rel="noopener">Global Math</a></p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
