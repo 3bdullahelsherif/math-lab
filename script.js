@@ -1,20 +1,5 @@
-/* مختبر الرياضيات — JavaScript خالص بدون مكتبات */
+/* الحاسبة الزرقا — JavaScript خالص بدون مكتبات */
 
-// ---------- Tabs ----------
-const tabs = document.querySelectorAll(".tab");
-tabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    tabs.forEach((t) => {
-      t.classList.toggle("active", t === tab);
-      t.setAttribute("aria-selected", t === tab ? "true" : "false");
-    });
-    document.querySelectorAll(".panel").forEach((p) => {
-      p.classList.toggle("active", p.id === tab.dataset.panel);
-    });
-  });
-});
-
-// ---------- Calculator ----------
 const historyEl = document.getElementById("calc-history");
 const currentEl = document.getElementById("calc-current");
 
@@ -144,7 +129,7 @@ function equals() {
   render();
 }
 
-document.querySelectorAll("#panel-calc .key").forEach((btn) => {
+document.querySelectorAll(".key").forEach((btn) => {
   btn.addEventListener("click", () => {
     if (btn.dataset.digit !== undefined) pushDigit(btn.dataset.digit);
     else if (btn.dataset.op) pushOp(btn.dataset.op);
@@ -160,7 +145,6 @@ document.querySelectorAll("#panel-calc .key").forEach((btn) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (!document.getElementById("panel-calc").classList.contains("active")) return;
   if (/^[0-9]$/.test(e.key)) pushDigit(e.key);
   else if (e.key === ".") pushDot();
   else if ("+-*/".includes(e.key)) pushOp(e.key);
@@ -168,97 +152,5 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "Backspace") { expr = expr.slice(0, -1); render(); }
   else if (e.key === "Escape") { expr = ""; historyEl.innerHTML = "&nbsp;"; render(); }
 });
-
-// ---------- Equation solver ----------
-const chips = document.querySelectorAll(".chip");
-const formulaEl = document.getElementById("solver-formula");
-const fieldC = document.getElementById("field-c");
-const stepsEl = document.getElementById("steps");
-let degree = 1;
-
-chips.forEach((chip) => {
-  chip.addEventListener("click", () => {
-    chips.forEach((c) => c.classList.toggle("active", c === chip));
-    degree = Number(chip.dataset.degree);
-    formulaEl.textContent = degree === 1 ? "a·x + b = 0" : "a·x² + b·x + c = 0";
-    fieldC.classList.toggle("hidden", degree === 1);
-    stepsEl.innerHTML = "";
-  });
-});
-
-function fmt(n) {
-  const r = Math.round(n * 1e6) / 1e6;
-  return Object.is(r, -0) ? "0" : String(r);
-}
-
-function signed(n, first = false) {
-  if (first) return n < 0 ? `-${fmt(Math.abs(n))}` : fmt(n);
-  return n < 0 ? ` − ${fmt(Math.abs(n))}` : ` + ${fmt(n)}`;
-}
-
-function addStep(title, math, note = "", isResult = false) {
-  const div = document.createElement("div");
-  div.className = "step" + (isResult ? " result" : "");
-  div.innerHTML =
-    `<div class="step-title"></div>` +
-    `<div class="step-math"></div>` +
-    (note ? `<div class="step-note"></div>` : "");
-  div.querySelector(".step-title").textContent = title;
-  div.querySelector(".step-math").textContent = math;
-  if (note) div.querySelector(".step-note").textContent = note;
-  stepsEl.appendChild(div);
-}
-
-function solve() {
-  const a = parseFloat(document.getElementById("in-a").value);
-  const b = parseFloat(document.getElementById("in-b").value);
-  const c = parseFloat(document.getElementById("in-c").value);
-  stepsEl.innerHTML = "";
-
-  if ([a, b].some(Number.isNaN) || (degree === 2 && Number.isNaN(c))) {
-    addStep("تنبيه", "...", "املأ كل المعاملات بأرقام صحيحة الأول 🙏");
-    return;
-  }
-  if (a === 0 && degree === 2) {
-    addStep("تنبيه", "a ≠ 0", "لو a بصفر، المعادلة مش من الدرجة الثانية — جرّب الدرجة الأولى.");
-    return;
-  }
-  if (a === 0) {
-    addStep("تنبيه", "a ≠ 0", "لو a بصفر مفيش معادلة في x أصلًا — غيّر قيمة a.");
-    return;
-  }
-
-  if (degree === 1) {
-    addStep("المعادلة", `${fmt(a)}x${signed(b)} = 0`);
-    addStep("الخطوة ١: نودّي b الناحية التانية بعكس الإشارة", `${fmt(a)}x = ${fmt(-b)}`);
-    addStep("الخطوة ٢: نقسم على a", `x = ${fmt(-b)} ÷ ${fmt(a)}`);
-    addStep("الحل ✅", `x = ${fmt(-b / a)}`, "", true);
-  } else {
-    const d = b * b - 4 * a * c;
-    addStep("المعادلة", `${fmt(a)}x²${signed(b)}x${signed(c)} = 0`);
-    addStep(
-      "الخطوة ١: نحسب المميّز Δ",
-      `Δ = b² − 4ac = (${fmt(b)})² − 4×${fmt(a)}×${fmt(c)} = ${fmt(d)}`,
-      "المميّز بيحدد عدد الحلول"
-    );
-    if (d > 0) {
-      const r1 = (-b + Math.sqrt(d)) / (2 * a);
-      const r2 = (-b - Math.sqrt(d)) / (2 * a);
-      addStep("الخطوة ٢: Δ موجب، يبقى في حلّين حقيقيين", `x = (−b ± √Δ) ÷ 2a = (${fmt(-b)} ± ${fmt(Math.sqrt(d))}) ÷ ${fmt(2 * a)}`);
-      addStep("الحل ✅", `x₁ = ${fmt(r1)}    x₂ = ${fmt(r2)}`, "", true);
-    } else if (d === 0) {
-      const r = -b / (2 * a);
-      addStep("الخطوة ٢: Δ بصفر، يبقى في حل واحد مكرر", `x = −b ÷ 2a = ${fmt(-b)} ÷ ${fmt(2 * a)}`);
-      addStep("الحل ✅", `x = ${fmt(r)}`, "", true);
-    } else {
-      addStep("الخطوة ٢: Δ سالب", `Δ = ${fmt(d)} < 0`, "مفيش حلول حقيقية — الحلول مركّبة");
-      const re = -b / (2 * a);
-      const im = Math.sqrt(-d) / (2 * a);
-      addStep("الحل (أعداد مركّبة) ✅", `x = ${fmt(re)} ± ${fmt(im)}i`, "", true);
-    }
-  }
-}
-
-document.getElementById("solve-btn").addEventListener("click", solve);
 
 render();
