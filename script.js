@@ -15,7 +15,14 @@ function render() {
 function pushDigit(d) {
   if (expr === "0") expr = d;
   else expr += d;
-  render();
+  // optional demo state for screenshots: ?demo=36*27
+const demo = new URLSearchParams(location.search).get("demo");
+if (demo && /^[\d+\-*/.]+$/.test(demo)) {
+  const v = safeEval(demo);
+  if (v !== null) { historyEl.innerHTML = pretty(demo) + " ="; expr = trimNum(v); }
+}
+
+render();
 }
 
 function pushDot() {
