@@ -1,5 +1,5 @@
 :root {
-  --ink: #1e3a6e;
+  --ink: #173263;
   --ink-soft: #6b8ac4;
   --blue-600: #2563eb;
   --blue-400: #60a5fa;
@@ -15,7 +15,7 @@
 html, body { height: 100%; }
 
 body {
-  font-family: "Cairo", system-ui, sans-serif;
+  font-family: "Nunito", "Cairo", system-ui, sans-serif;
   color: var(--ink);
   background: linear-gradient(160deg, #eaf2ff, #dbeafe 55%, #cfe3ff);
   min-height: 100vh;
@@ -92,7 +92,7 @@ body {
   overflow: hidden;
 }
 .display-history { color: var(--ink-soft); font-size: 0.9rem; min-height: 1.3em; }
-.display-current { font-size: 2.2rem; font-weight: 800; word-break: break-all; line-height: 1.2; }
+.display-current { font-size: 2.2rem; font-weight: 800; letter-spacing: 0.5px; word-break: break-all; line-height: 1.2; }
 
 .keys {
   display: grid;
@@ -106,7 +106,7 @@ body {
   background: var(--white);
   color: var(--ink);
   font-family: inherit;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 700;
   padding: 0;
   aspect-ratio: 1;
@@ -129,7 +129,8 @@ body {
 .key.op {
   background: var(--blue-100);
   color: var(--blue-600);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
+  font-weight: 500;
 }
 .key.op:hover { background: var(--blue-200); }
 .key.small { font-size: 0.95rem; border-radius: 13px; }
