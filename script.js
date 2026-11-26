@@ -48,7 +48,7 @@ function applyUnary(kind) {
   if (kind === "negate") out = -val;
   if (kind === "pi") out = Math.PI;
   if (Number.isNaN(out) || !Number.isFinite(out)) {
-    showError("عملية غير صالحة");
+    showError("invalid operation");
     return;
   }
   historyEl.innerHTML = pretty(expr) + " =";
@@ -123,7 +123,7 @@ function safeEval(s) {
 
 function equals() {
   const val = safeEval(expr);
-  if (val === null) { showError("صيغة غير مكتملة"); return; }
+  if (val === null) { showError("incomplete expression"); return; }
   historyEl.innerHTML = pretty(expr) + " =";
   expr = trimNum(val);
   render();

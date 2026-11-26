@@ -130,6 +130,8 @@ body {
 .key.op:hover { background: var(--blue-200); }
 .key.small { font-size: 0.95rem; padding: 11px 0; border-radius: 13px; }
 
+.key.zero { grid-column: span 2; }
+
 .key.equals {
   background: linear-gradient(135deg, var(--blue-400), var(--blue-600));
   color: #fff;

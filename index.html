@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الحاسبة الزرقا 💙</title>
-  <meta name="description" content="الحاسبة الزرقا: آلة حاسبة لطيفة بـ HTML وCSS وJavaScript خالص — من Global Math." />
+  <title>blue calculator 💙</title>
+  <meta name="description" content="a cute little blue calculator made with HTML, CSS, and JavaScript — by Global Math." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- soft blurred blobs -->
   <div class="blobs" aria-hidden="true">
     <div class="blob b1"></div>
     <div class="blob b2"></div>
@@ -31,8 +32,8 @@
   <main class="page">
     <section class="calc">
       <header class="calc-head">
-        <div class="calc-title">💙 الحاسبة الزرقا</div>
-        <div class="calc-sub">made with love by Global Math</div>
+        <div class="calc-title">💙 blue calculator</div>
+        <div class="calc-sub">made for you</div>
       </header>
 
       <div class="display">
@@ -43,7 +44,7 @@
       <div class="keys">
         <button class="key fn" data-action="clear">AC</button>
         <button class="key fn" data-action="backspace">⌫</button>
-        <button class="key fn" data-action="percent">%</button>
+        <button class="key fn" data-action="negate">+/−</button>
         <button class="key op" data-op="/">÷</button>
 
         <button class="key" data-digit="7">7</button>
@@ -61,8 +62,7 @@
         <button class="key" data-digit="3">3</button>
         <button class="key op" data-op="+">+</button>
 
-        <button class="key fn" data-action="negate">±</button>
-        <button class="key" data-digit="0">0</button>
+        <button class="key zero" data-digit="0">0</button>
         <button class="key" data-action="dot">.</button>
         <button class="key equals" data-action="equals">=</button>
       </div>
@@ -74,7 +74,7 @@
         <button class="key fn small" data-action="pi">π</button>
       </div>
 
-      <footer class="calc-foot">حسبة لطيفة ولمسة زرقا ✨</footer>
+      <footer class="calc-foot">a little math in blue ✨</footer>
     </section>
   </main>
 

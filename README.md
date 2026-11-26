@@ -1,15 +1,15 @@
-# الحاسبة الزرقا 💙
+# blue calculator 💙
 
-آلة حاسبة لطيفة بتصميم أزرق ناعم — **HTML + CSS + JavaScript خالص، بدون أي مكتبات.**
+a cute little blue calculator — **plain HTML + CSS + JavaScript, no libraries.**
 
-## التشغيل
+## Run
 
-افتح `index.html` مباشرة في المتصفح، أو زر النسخة المنشورة:
+Open `index.html` in your browser, or visit the live version:
 
 🔗 https://3bdullahelsherif.github.io/math-lab/
 
-## المميزات
+## Features
 
-- 🧮 العمليات الأساسية + √ و x² و 1/x و π و % و ±
-- ⌨️ دعم كامل للوحة المفاتيح
-- 🎨 تصميم أزرق ناعم بألوان Global Math
+- 🧮 basics + √, x², 1/x, π, %, +/−
+- ⌨️ full keyboard support
+- 🎨 soft blue theme
