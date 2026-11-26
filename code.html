@@ -78,14 +78,19 @@
   </div>
   <script>
     const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    const highlight = (line) =>
-      esc(line)
-        .replace(/(\/\/.*$|\/\*.*?\*\/)/g, '<span class="c">$1</span>')
-        .replace(/(&quot;|")(.*?)(")/g, '<span class="s">$1$2$3</span>')
-        .replace(/&#39;(.*?)&#39;/g, '<span class="s">&#39;$1&#39;</span>')
-        .replace(/\b(const|let|var|function|return|if|else|for|while|of|in|new|typeof|document|window)\b/g, '<span class="k">$1</span>')
-        .replace(/\b(\d+\.?\d*)\b/g, '<span class="n">$1</span>')
-        .replace(/([a-zA-Z_$][\w$]*)(?=\()/g, '<span class="f">$1</span>');
+    const highlight = (line) => {
+      const store = [];
+      const keep = (html) => { store.push(html); return "\x00" + (store.length - 1) + "\x01"; };
+      let out = esc(line);
+      out = out.replace(/&quot;.*?&quot;|".*?"|&#39;.*?&#39;|`.*?`/g, (m) => keep('<span class="s">' + m + '</span>'));
+      out = out.replace(/(\/\/.*$)/, (m) => keep('<span class="c">' + m + '</span>'));
+      out = out.replace(/(\/\*.*?\*\/)/g, (m) => keep('<span class="c">' + m + '</span>'));
+      out = out.replace(/\b(const|let|var|function|return|if|else|for|while|of|in|new|typeof|document|window)\b/g, '<span class="k">$1</span>');
+      out = out.replace(/(?<![\w\x00])(\d+\.?\d*)(?![\w\x00])/g, '<span class="n">$1</span>');
+      out = out.replace(/([a-zA-Z_$][\w$]*)(?=\()/g, '<span class="f">$1</span>');
+      out = out.replace(/\x00(\d+)\x01/g, (m, i) => store[+i]);
+      return out;
+    };
     fetch("script.js")
       .then((r) => r.text())
       .then((src) => {
